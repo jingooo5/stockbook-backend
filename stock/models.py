@@ -3,10 +3,12 @@ from __future__ import annotations
 import datetime
 from typing import List
 
+
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 
-from database import Base
+from database import Base, num_12_4, num_8_4
+
 
 class Quote(Base):
     __tablename__ = 'quote'
@@ -36,6 +38,16 @@ class Stocks(Base):
     market_id : Mapped[int] = mapped_column(ForeignKey('markets.id'))
     trading_history: Mapped[List["TradingHistory"]] = relationship()
 
+
+class Account(Base):
+    __tablename__ = 'account'
+
+    id : Mapped[int] = mapped_column( primary_key=True, index=True)
+    nickname: Mapped[str]
+    balance: Mapped[float]
+    quote_id : Mapped[int] = mapped_column(ForeignKey('quote.id'))
+
+
 class TradingHistory(Base):
     __tablename__ = 'trading_history'
 
@@ -43,5 +55,9 @@ class TradingHistory(Base):
     stock_id: Mapped[int] = mapped_column(ForeignKey("stocks.id"))
     create_time: Mapped[datetime.datetime] = mapped_column(default=datetime.now())
     update_time: Mapped[datetime.datetime] = mapped_column(default=datetime.now(), onupdate=datetime.now())
-    price: Mapped[str]
-    quote: Mapped[str]
+    date : Mapped[datetime.datetime]
+    price: Mapped[num_8_4]
+    number: Mapped[int]
+    quote_id : Mapped[int] = mapped_column(ForeignKey('quote.id'))
+    type : Mapped[int]
+    account_id: Mapped[int] = mapped_column(ForeignKey('account.id'))
