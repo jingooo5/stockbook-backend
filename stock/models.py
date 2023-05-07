@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import datetime
+from datetime import datetime
 from typing import List
 
 
@@ -15,7 +15,7 @@ class Quote(Base):
 
     id : Mapped[int] = mapped_column(primary_key=True, index=True)
     symbol: Mapped[str]
-    update_time: Mapped[datetime.datetime] = mapped_column(default=datetime.now(), onupdate=datetime.now())
+    update_time: Mapped[datetime] = mapped_column(default=datetime.now(), onupdate=datetime.now())
     kr_rate : Mapped[float]
 
 
@@ -53,9 +53,9 @@ class TradingHistory(Base):
 
     id : Mapped[int] = mapped_column( primary_key=True, index=True)
     stock_id: Mapped[int] = mapped_column(ForeignKey("stocks.id"))
-    create_time: Mapped[datetime.datetime] = mapped_column(default=datetime.now())
-    update_time: Mapped[datetime.datetime] = mapped_column(default=datetime.now(), onupdate=datetime.now())
-    date : Mapped[datetime.datetime]
+    create_time: Mapped[datetime] = mapped_column(default=datetime.now())
+    update_time: Mapped[datetime] = mapped_column(default=datetime.now(), onupdate=datetime.now())
+    date : Mapped[datetime]
     price: Mapped[num_8_4]
     number: Mapped[int]
     quote_id : Mapped[int] = mapped_column(ForeignKey('quote.id'))
