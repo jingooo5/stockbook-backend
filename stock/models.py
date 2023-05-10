@@ -37,6 +37,7 @@ class Stocks(Base):
     code : Mapped[str] = mapped_column(unique=True, index=True)
     market_id : Mapped[int] = mapped_column(ForeignKey('markets.id'))
     trading_history: Mapped[List["TradingHistory"]] = relationship()
+    interested : Mapped[bool]
 
 
 class Account(Base):

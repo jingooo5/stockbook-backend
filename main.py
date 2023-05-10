@@ -2,9 +2,9 @@ from fastapi import FastAPI, Depends, status
 from fastapi.responses import JSONResponse
 from typing import Annotated
 
-from database import engine
-from stock import models
-from dependencies import get_db
+
+from stock.router import stock_router
+
 
 async def not_found(request, exc):
     return JSONResponse(
@@ -14,7 +14,7 @@ async def not_found(request, exc):
 exception_handlers = {404: not_found}
 
 app = FastAPI(exception_handlers=exception_handlers, openapi_url="")
-
+app.include_router(stock_router)
 
 @app.get("/")
 async def root():
