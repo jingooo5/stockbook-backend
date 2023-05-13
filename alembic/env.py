@@ -7,7 +7,7 @@ from alembic import context
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
-from stock.models import Quote, Markets, Stocks, Account, TradingHistory
+from stock.models import Quote, Market, Stock, Account, TradingHistory
 
 config = context.config
 

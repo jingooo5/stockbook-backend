@@ -10,5 +10,11 @@ Accept: application/json
 
 ###
 
-GET http://127.0.0.1:8000/stock/1
+GET http://127.0.0.1:8000/stocks/1
 Accept: application/json
+
+###
+
+GET http://127.0.0.1:8000/healthcheck
+Accept: application/json
+

@@ -1,6 +1,5 @@
 from sqlalchemy.orm import Session
-from . import models, schemas
+from .models import Stock
 
-
-def get_stock(db: Session, stock_id: int):
-    return db.query(models.Stocks).filter(models.Stocks.id == stock_id).first()
+def get(db_session, stock_id: int):
+    return db_session.query(Stock).filter(Stock.id == stock_id).first()

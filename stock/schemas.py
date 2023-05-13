@@ -33,7 +33,7 @@ class StockBase(BaseModel):
     market_id: int
 
 
-class Stock(StockBase):
+class StockOut(StockBase):
     id: int
     interested: bool
 

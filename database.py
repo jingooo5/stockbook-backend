@@ -1,12 +1,14 @@
 from decimal import Decimal
 from typing import Dict, Type, Any
 
+from fastapi import Depends
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import DeclarativeBase
+from sqlalchemy.orm import DeclarativeBase, Session
 from sqlalchemy import Numeric
 from sqlalchemy import String
 from sqlalchemy.orm import sessionmaker, registry
+from starlette.requests import Request
 from typing_extensions import Annotated
 
 str_30 = Annotated[str, 30]
@@ -22,7 +24,7 @@ engine = create_engine(
     # only for sqlite
     SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
 )
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+# SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
 class Base(DeclarativeBase):
@@ -37,3 +39,11 @@ class Base(DeclarativeBase):
     )
 
 # Base = declarative_base()
+
+
+def get_db(request: Request):
+    # print("request from connection")
+    return request.state.db
+
+
+DbSession = Annotated[Session, Depends(get_db)]
