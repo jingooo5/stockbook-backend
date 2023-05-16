@@ -28,7 +28,7 @@ class TradingHistoryBase(BaseModel):
 
 class StockBase(BaseModel):
     name: str = Field(min_length=1, max_length=32)
-    symbol: str = Field(min_length=1, max_length=10)
+    symbol: Optional[str] = Field(min_length=1, max_length=10)
     code: str = Field(min_length=1, max_length=10)
     market_id: int
 
@@ -39,6 +39,11 @@ class StockOut(StockBase):
 
     class Config:
         orm_mode = True
+
+
+class StockIn(StockBase):
+    interested : Optional[bool]
+
 
 # class MarketBase(BaseModel):
 #     name :

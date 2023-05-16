@@ -11,18 +11,20 @@ from sqlalchemy.orm import sessionmaker, registry
 from starlette.requests import Request
 from typing_extensions import Annotated
 
+from config import DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_DATABASE
+
 str_30 = Annotated[str, 30]
 str_50 = Annotated[str, 50]
 num_12_4 = Annotated[Decimal, 12]
 num_6_2 = Annotated[Decimal, 6]
 num_8_4 = Annotated[Decimal, 8]
 
-SQLALCHEMY_DATABASE_URL = "sqlite:///db"
-# SQLALCHEMY_DATABASE_URL = "postgresql://user:password@postgresserver/db"
+# SQLALCHEMY_DATABASE_URL = "sqlite:///db"
+SQLALCHEMY_DATABASE_URL = f'mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_DATABASE}'
 
 engine = create_engine(
     # only for sqlite
-    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
+    SQLALCHEMY_DATABASE_URL
 )
 # SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 

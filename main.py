@@ -48,7 +48,7 @@ async def db_session_middleware(request: Request, call_next):
         }
     )
     try:
-        session = scoped_session(sessionmaker(bind=engine), scopefunc=get_request_id)
+        session = scoped_session(sessionmaker(autocommit=False, autoflush=False,bind=engine), scopefunc=get_request_id)
         request.state.db = session()
         # print("set request.db")
         response = await call_next(request)

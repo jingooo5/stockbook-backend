@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 
@@ -42,7 +42,7 @@ class Stock(Base):
 
     id : Mapped[int] = mapped_column(primary_key=True, index=True)
     name : Mapped[str]
-    symbol: Mapped[str]
+    symbol: Mapped[Optional[str]]
     code : Mapped[str] = mapped_column(unique=True, index=True)
     market_id : Mapped[int] = mapped_column(ForeignKey('market.id'))
     interested : Mapped[bool]
