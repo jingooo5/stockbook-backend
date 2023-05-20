@@ -5,6 +5,7 @@ from fastapi import FastAPI, Depends, status
 from fastapi.responses import JSONResponse
 from typing import Annotated, Final, Optional
 
+from pydantic import ValidationError
 from sqlalchemy import inspect
 from sqlalchemy.orm import scoped_session, sessionmaker
 from starlette.requests import Request
@@ -52,6 +53,9 @@ async def db_session_middleware(request: Request, call_next):
         request.state.db = session()
         # print("set request.db")
         response = await call_next(request)
+    except ValidationError as e:
+        print("error in main" , e)
+        raise e from None
     except Exception as e:
         raise e from None
     finally:

@@ -20,7 +20,8 @@ num_6_2 = Annotated[Decimal, 6]
 num_8_4 = Annotated[Decimal, 8]
 
 # SQLALCHEMY_DATABASE_URL = "sqlite:///db"
-SQLALCHEMY_DATABASE_URL = f'mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_DATABASE}'
+SQLALCHEMY_DATABASE_URL = f'mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_DATABASE}?charset=utf8'
+print("url" , SQLALCHEMY_DATABASE_URL)
 
 engine = create_engine(
     # only for sqlite
