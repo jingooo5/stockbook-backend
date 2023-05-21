@@ -2,5 +2,6 @@
 __pycache__
 
 
-db
 alembic/versions
+
+.venv
