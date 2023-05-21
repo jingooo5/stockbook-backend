@@ -7,6 +7,7 @@ from typing import Annotated, Final, Optional
 
 from pydantic import ValidationError
 from sqlalchemy import inspect
+from sqlalchemy.ext.asyncio import async_sessionmaker, async_scoped_session
 from sqlalchemy.orm import scoped_session, sessionmaker
 from starlette.requests import Request
 
@@ -49,9 +50,8 @@ async def db_session_middleware(request: Request, call_next):
         }
     )
     try:
-        session = scoped_session(sessionmaker(autocommit=False, autoflush=False,bind=engine), scopefunc=get_request_id)
+        session = async_scoped_session(async_sessionmaker(autocommit=False, autoflush=False,bind=engine), scopefunc=get_request_id)
         request.state.db = session()
-        # print("set request.db")
         response = await call_next(request)
     except ValidationError as e:
         print("error in main" , e)
@@ -59,7 +59,8 @@ async def db_session_middleware(request: Request, call_next):
     except Exception as e:
         raise e from None
     finally:
-        request.state.db.close()
+        # await engine.dispose()
+        await request.state.db.close()
 
     _request_id_ctx_var.reset(ctx_token)
     return response

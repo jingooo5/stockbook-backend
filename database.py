@@ -2,7 +2,7 @@ from decimal import Decimal
 from typing import Dict, Type, Any
 
 from fastapi import Depends
-from sqlalchemy import create_engine
+from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import DeclarativeBase, Session
 from sqlalchemy import Numeric
@@ -20,10 +20,10 @@ num_6_2 = Annotated[Decimal, 6]
 num_8_4 = Annotated[Decimal, 8]
 
 # SQLALCHEMY_DATABASE_URL = "sqlite:///db"
-SQLALCHEMY_DATABASE_URL = f'mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_DATABASE}?charset=utf8'
+SQLALCHEMY_DATABASE_URL = f'mysql+aiomysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_DATABASE}?charset=UTF8MB4'
 print("url" , SQLALCHEMY_DATABASE_URL)
 
-engine = create_engine(
+engine = create_async_engine(
     # only for sqlite
     SQLALCHEMY_DATABASE_URL
 )

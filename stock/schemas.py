@@ -35,7 +35,7 @@ class StockBase(BaseModel):
 
 class StockOut(StockBase):
     id: int
-    interested: bool
+    interested: Optional[str] = Field(None, max_length=10)
 
     class Config:
         orm_mode = True

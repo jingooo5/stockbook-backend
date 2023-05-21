@@ -2,7 +2,7 @@
 # Test your FastAPI endpoints
 ###
 
-GET http://127.0.0.1:8000/stocks/1
+GET http://127.0.0.1:8000/stocks/23
 Accept: application/json
 
 ###
@@ -13,10 +13,14 @@ Accept: application/json
 ###
 
 POST http://127.0.0.1:8000/stocks
-Accept: application/json
+Content-Type: application/json
 
 {
   "name": "sk텔레콤",
   "code": "017670",
   "market_id": 1
 }
+
+###
+
+
