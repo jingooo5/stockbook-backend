@@ -2,8 +2,10 @@
 __pycache__
 
 
-db
 alembic/versions
 migrations/versions
 
 alembic.ini
+
+
+.venv
